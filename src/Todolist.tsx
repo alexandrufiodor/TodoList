@@ -1,6 +1,8 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import React, {ChangeEvent} from "react";
 import {FilterValuesType} from "./App";
 import './App.css';
+import {AddItemForm} from "./AddItemForm";
+import {EditableSpan} from "./EditableSpan";
 
 export type TaskType = {
     id: string
@@ -14,34 +16,16 @@ type PropsType = {
     tasks: Array<TaskType>
     removeTask: (taskId: string, todolistId: string) => void
     addTask: (title: string, todolistId: string) => void
+    changeTaskTitle: (id: string, title: string, todolistId: string) => void
     changeFilter: (value: FilterValuesType, todolistId: string) => void
     changeStatus: (id: string, isDone: boolean, todolistId: string) => void
     filter: FilterValuesType
-    removeTodolist:  (id: string) => void
+    removeTodolist: (id: string) => void
+    changeTodolistTitle: (todolistId: string, title: string) => void
 }
 
-
 export const Todolist = (props: PropsType) => {
-    let [title, setTitle] = useState("");
-    let [error, setError] = useState<string | null>(null);
-    const addTasks = () => {
-        if (title.trim() !== '') {
-            props.addTask(title.trim(), props.id);
-            setTitle('')
-        } else {
-            setError('Title is required')
-        }
-    }
 
-    const onChangeHandle = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-    }
-    const onKeyPressHandle = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
-        if (e.charCode === 13) {
-            addTasks()
-        }
-    }
     const onAllClickHandle = () => {
         props.changeFilter('all', props.id)
     }
@@ -52,23 +36,21 @@ export const Todolist = (props: PropsType) => {
         props.changeFilter('completed', props.id)
     }
 
-    const removeTodolistClick = () => {props.removeTodolist(props.id)}
+    const removeTodolistClick = () => {
+        props.removeTodolist(props.id)
+    }
+
+    const ChangeTodolistTitle = (title: string) => props.changeTodolistTitle(props.id, title)
 
     return <div>
-        <h3>{props.title}  <button onClick={ removeTodolistClick }>x</button></h3>
-        <div>
-            <input value={title}
-                   onChange={(e) => {
-                       onChangeHandle(e)
-                   }}
-                   onKeyPress={(e) => {
-                       onKeyPressHandle(e)
-                   }}
-                   className={error ? "error" : ''}
-            />
-            <button onClick={addTasks}>+</button>
-            {error && <div className='error-message'>{error}</div>}
-        </div>
+
+        <h3>
+            <EditableSpan title={props.title} onChange={ChangeTodolistTitle}/>
+            <button onClick={removeTodolistClick}>x</button>
+        </h3>
+
+        <AddItemForm id={props.id} addTask={props.addTask}/>
+
         <ul>
             {
 
@@ -76,15 +58,18 @@ export const Todolist = (props: PropsType) => {
 
                     const onClickHandle = () => props.removeTask(t.id, props.id)
 
-                    const onChangeHandle = (e: ChangeEvent<HTMLInputElement>) => props.changeStatus(t.id, e.currentTarget.checked, props.id)
+                    const onChangeStatusHandle = (e: ChangeEvent<HTMLInputElement>) => props.changeStatus(t.id, e.currentTarget.checked, props.id)
+                    const onChangeTitleHandle = (title: string) => props.changeTaskTitle(t.id, title, props.id)
 
 
                     return <li key={t.id} className={t.isDone ? 'is-done' : ''}>
                         <input type="checkbox"
                                checked={t.isDone}
-                               onChange={onChangeHandle}/>
+                               onChange={onChangeStatusHandle}/>
 
-                        <span>{t.title}</span>
+                        {/*<span>{t.title}</span>*/}
+
+                        <EditableSpan title={t.title} onChange={onChangeTitleHandle}/>
                         <button onClick={() => {
                             onClickHandle()
                         }}>x
