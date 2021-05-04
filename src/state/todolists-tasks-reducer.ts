@@ -1,5 +1,5 @@
 import React from "react";
-import {FilterValuesType, TasksStateType, TodolistType} from '../App';
+import {FilterValuesType, TasksStateType, TodolistType} from '../AppWithRedux';
 import {v1} from "uuid";
 import { AddTodolistActionType } from "./todolists-reducer";
 

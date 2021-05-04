@@ -4,7 +4,7 @@ import {AddBox} from "@material-ui/icons";
 
 type AddItemFormPropsType = {
     id: string
-    addTask: (title: string, id: string) => void
+    addItem: (title: string, id: string) => void
 }
 
 export const AddItemForm = (props: AddItemFormPropsType) => {
@@ -13,7 +13,7 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
 
     const addTasks = () => {
         if (title.trim() !== '') {
-            props.addTask(title.trim(), props.id);
+            props.addItem(title.trim(), props.id);
             setTitle('')
         } else {
             setError('Title is required')

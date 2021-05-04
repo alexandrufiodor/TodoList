@@ -32,26 +32,6 @@ function AppWithRedux() {
     const todolists = useSelector<AppRootState, Array<TodolistType>>(state => state.todolists)
     const tasks = useSelector<AppRootState, TasksStateType>(state => state.tasks)
 
-    function addTask(title: string, todolistId: string) {
-        const action = addTaskAC(title, todolistId)
-        dispatch(action)
-    }
-
-    function removeTask(id: string, todolistId: string) {
-        const action = removeTaskAC(id, todolistId)
-        dispatch(action)
-    }
-
-    function changeStatus(id: string, isDone: boolean, todolistId: string) {
-        const action = changeTaskStatusAC(id, isDone, todolistId)
-        dispatch(action)
-
-    }
-
-    function changeTaskTitle(id: string, title: string, todolistId: string) {
-        const action = changeTaskTitleAC(id, title, todolistId)
-        dispatch(action)
-    }
 
     function removeTodolist(id: string) {
         const action = removeTodolistAC(id)
@@ -91,21 +71,21 @@ function AppWithRedux() {
 
             <Container fixed>
                 <Grid container style={{padding: "20px"}}>
-                    <AddItemForm id={v1()} addTask={addTodolist}/>
+                    <AddItemForm id={v1()} addItem={addTodolist}/>
 
                 </Grid>
                 <Grid container spacing={3}>
                     {
                         todolists.map((tl) => {
 
-                            let tasksForTodolist = tasks[tl.id]
-
-                            if (tl.filter === "active") {
-                                tasksForTodolist = tasksForTodolist.filter(t => t.isDone === false);
-                            }
-                            if (tl.filter === "completed") {
-                                tasksForTodolist = tasksForTodolist.filter(t => t.isDone === true);
-                            }
+                            // let tasksForTodolist = tasks[tl.id]
+                            //
+                            // if (tl.filter === "active") {
+                            //     tasksForTodolist = tasksForTodolist.filter(t => t.isDone === false);
+                            // }
+                            // if (tl.filter === "completed") {
+                            //     tasksForTodolist = tasksForTodolist.filter(t => t.isDone === true);
+                            // }
 
 
                             return <Grid item>
@@ -114,13 +94,8 @@ function AppWithRedux() {
                                         key={tl.id}
                                         title={tl.title}
                                         id={tl.id}
-                                        tasks={tasksForTodolist}
-                                        removeTask={removeTask}
-                                        addTask={addTask}
-                                        changeTaskTitle={changeTaskTitle}
                                         changeTodolistTitle={changeTodolistTitle}
                                         changeFilter={changeFilter}
-                                        changeStatus={changeStatus}
                                         filter={tl.filter}
                                         removeTodolist={removeTodolist}
                                     />
