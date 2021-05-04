@@ -1,12 +1,4 @@
-import {
-    AddTodolistAC,
-    ChangeTodolistFilterAC,
-    ChangeTodolistTitleAC, removeTodolistAC,
-    RemoveTodolistAC,
-    todolistsReducer
-} from './todolists-reducer';
-import {v1} from 'uuid';
-import {FilterValuesType, TodolistType} from '../App';
+import {  removeTodolistAC  } from './todolists-reducer';
 
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './tasks-reducer';
 import {TasksStateType} from '../App';
