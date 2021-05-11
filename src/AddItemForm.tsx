@@ -1,19 +1,19 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import { IconButton, TextField} from "@material-ui/core";
+import React, {ChangeEvent, KeyboardEvent, useCallback, useState} from "react";
+import {IconButton, TextField} from "@material-ui/core";
 import {AddBox} from "@material-ui/icons";
 
 type AddItemFormPropsType = {
-    id: string
-    addItem: (title: string, id: string) => void
+    addItem: (title: string) => void
 }
 
-export const AddItemForm = (props: AddItemFormPropsType) => {
+export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
+    console.log('Add item form ')
     let [title, setTitle] = useState("");
     let [error, setError] = useState<string | null>(null);
 
     const addTasks = () => {
         if (title.trim() !== '') {
-            props.addItem(title.trim(), props.id);
+            props.addItem(title);
             setTitle('')
         } else {
             setError('Title is required')
@@ -24,7 +24,9 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
         setTitle(e.currentTarget.value)
     }
     const onKeyPressHandle = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
+        if (error !== null) {
+            setError(null)
+        }
         if (e.charCode === 13) {
             addTasks()
         }
@@ -40,9 +42,9 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
                        label={"Title"}
                        helperText={error}
             />
-            <IconButton onClick={addTasks}  color={"primary"}>
+            <IconButton onClick={addTasks} color={"primary"}>
                 <AddBox/>
             </IconButton>
         </div>
     )
-}
+})
