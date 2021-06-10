@@ -5,22 +5,18 @@ import {AddItemForm} from './AddItemForm';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core';
 import {Menu} from '@material-ui/icons';
 import {
-    addTodolistAC, addTodolistTC,
-    changeTodolistFilterAC,
-    changeTodolistTitleAC, fetchTodolistsTC,
-    FilterValuesType,
-    removeTodolistAC, removeTodolistTC,
+    addTodolistTC,
+    changeTodolistFilterAC, fetchTodolistsTC,
+    FilterValuesType, removeTodolistTC,
     TodolistDomainType, updateTodolistTitleTC
 } from './state/todolists-reducer'
 import {
     addTasksTC,
-    changeTaskStatusAC,
-    changeTaskTitleAC,
     removeTasksTC, updateTasksStatusTC, updateTasksTitleTC
 } from './state/tasks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './state/store';
-import {TaskStatuses, TaskType, todolistsAPI} from './api/todolists-api'
+import {TaskStatuses, TaskType} from './api/todolists-api'
 
 
 export type TasksStateType = {

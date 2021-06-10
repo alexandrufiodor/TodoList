@@ -159,7 +159,7 @@ export const addTasksTC = (todolistId: string, title: string) => {
     }
 }
 
-export const updateTasksStatusTC = (taskId: string,  status: TaskStatuses, todolistId: string) => {
+export const updateTasksStatusTC = (taskId: string, status: TaskStatuses, todolistId: string) => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
         const allTasksFromState = getState().tasks;
 
