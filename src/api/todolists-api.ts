@@ -5,8 +5,8 @@ const instance = axios.create({
     withCredentials: true,
     headers: {
         'Access-Control-Allow-Origin': "*",
+        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE',
         'API-KEY': '367b5061-81a8-4346-a38b-61dffe8fe508',
-        'Content-Type': 'application/json'
     }
 })
 
