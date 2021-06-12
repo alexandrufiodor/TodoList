@@ -1,9 +1,8 @@
 import {removeTodolistAC, setTodolistsAC} from './todolists-reducer';
 
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './tasks-reducer';
-import {TasksStateType} from '../../app/App';
 import {v1} from "uuid";
 import {TaskPriorities, TaskStatuses} from "../../api/todolists-api";
+import {addTaskAC, removeTaskAC, tasksReducer, TasksStateType, updateTaskAC} from './tasks-reducer';
 
 const startState: TasksStateType = {
     "todolistId1": [
@@ -189,7 +188,7 @@ test('correct task should be added to correct array', () => {
 
 test('status of specified task should be changed', () => {
 
-    const action = changeTaskStatusAC("2", 1, "todolistId2");
+    const action = updateTaskAC("2", {status: 1}, "todolistId2");
 
     const endState = tasksReducer(startState, action)
 
@@ -200,7 +199,7 @@ test('status of specified task should be changed', () => {
 
 test('title of specified task should be changed', () => {
 
-    const action = changeTaskTitleAC("2", 'Sugar', "todolistId2");
+    const action = updateTaskAC("2", {title: 'Sugar'}, "todolistId2");
 
     const endState = tasksReducer(startState, action)
 
